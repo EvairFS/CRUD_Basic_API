@@ -1,24 +1,61 @@
-# Logs
-logs
-*.log
+# =========================
+# Node / JavaScript
+# =========================
+node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# =========================
+# Build / dist
+# =========================
+dist/
+build/
+.out/
+coverage/
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
+# =========================
+# Vite / React
+# =========================
+.vite/
+.env
+.env.*
+!.env.example
+
+# =========================
+# NestJS
+# =========================
+backend/dist/
+backend/node_modules/
+
+# =========================
+# Prisma
+# =========================
+backend/prisma/dev.db
+backend/prisma/*.db
+backend/prisma/*.db-journal
+
+# =========================
+# Logs
+# =========================
+logs/
+*.log
+
+# =========================
+# OS / Editor
+# =========================
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+Thumbs.db
+
+# VS Code
+.vscode/
+!.vscode/extensions.json
+
+# IntelliJ / WebStorm
+.idea/
+
+# =========================
+# Git
+# =========================
+*.orig
