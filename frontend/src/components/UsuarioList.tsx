@@ -1,53 +1,54 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { api } from "../services/api";
 
+interface Usuario {
+  id: number;
+  nome: string;
+  email: string;
+}
+
 const UsuarioList = () => {
-  const [usuarios, setUsuarios] = useState([]);
+  const [usuarios, setUsuarios] = useState<Usuario[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchUsuarios();
   }, []);
 
-  const fetchUsuarios = async () => {
+  async function fetchUsuarios() {
     try {
-      const response = await api.get("/usuarios");
+      const response = await api.get<Usuario[]>("/usuarios");
       setUsuarios(response.data);
     } catch (error) {
-      console.error("Erro ao buscar usuários:", error);
+      console.error("Erro:", error);
     } finally {
       setLoading(false);
     }
-  };
+  }
 
   if (loading) return <p>Carregando usuários...</p>;
 
   return (
     <div>
       <h2>Lista de Usuários</h2>
+
       {usuarios.length === 0 ? (
         <p>Nenhum usuário encontrado.</p>
       ) : (
-        <table border="1" cellPadding="5">
+        <table border={1}>
           <thead>
             <tr>
               <th>ID</th>
               <th>Nome</th>
-              <th>Porta</th>
-              <th>Ações</th>
+              <th>Email</th>
             </tr>
           </thead>
           <tbody>
-            {usuarios.map((usuario) => (
-              <tr key={usuario.id}>
-                <td>{usuario.id}</td>
-                <td>{usuario.nome}</td>
-                <td>{usuario.porta}</td>
-                <td>
-                  {/* Futuramente colocar botões de editar e deletar */}
-                  <button>Editar</button>
-                  <button>Deletar</button>
-                </td>
+            {usuarios.map((u) => (
+              <tr key={u.id}>
+                <td>{u.id}</td>
+                <td>{u.nome}</td>
+                <td>{u.email}</td>
               </tr>
             ))}
           </tbody>
