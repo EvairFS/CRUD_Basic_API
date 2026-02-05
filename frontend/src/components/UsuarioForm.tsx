@@ -1,12 +1,16 @@
 import { useState } from "react";
 import { api } from "../services/api";
 
-export default function UsuarioForm({ onUsuarioCriado }) {
+type Props = {
+  onCreated: () => void;
+};
+
+export default function UsuarioForm({ onCreated }: Props) {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
 
-  async function handleSubmit(e) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
     try {
@@ -20,14 +24,11 @@ export default function UsuarioForm({ onUsuarioCriado }) {
       setEmail("");
       setSenha("");
 
-      alert("Usuário cadastrado com sucesso!");
-
-      if (onUsuarioCriado) {
-        onUsuarioCriado();
-      }
+      alert("Usuário cadastrado!");
+      onCreated();
     } catch (error) {
       console.error(error);
-      alert("Erro ao cadastrar usuário");
+      alert("Erro ao cadastrar");
     }
   }
 
@@ -36,19 +37,15 @@ export default function UsuarioForm({ onUsuarioCriado }) {
       <h2>Cadastrar Usuário</h2>
 
       <input
-        type="text"
         placeholder="Nome"
         value={nome}
         onChange={(e) => setNome(e.target.value)}
-        required
       />
 
       <input
-        type="email"
         placeholder="Email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        required
       />
 
       <input
@@ -56,7 +53,6 @@ export default function UsuarioForm({ onUsuarioCriado }) {
         placeholder="Senha"
         value={senha}
         onChange={(e) => setSenha(e.target.value)}
-        required
       />
 
       <button type="submit">Cadastrar</button>

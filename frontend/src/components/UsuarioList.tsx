@@ -1,61 +1,70 @@
 import { useEffect, useState } from "react";
 import { api } from "../services/api";
 
-interface Usuario {
+type Usuario = {
   id: number;
   nome: string;
   email: string;
-}
+};
 
-const UsuarioList = () => {
+type Props = {
+  reload: boolean;
+};
+
+export default function UsuarioList({ reload }: Props) {
   const [usuarios, setUsuarios] = useState<Usuario[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchUsuarios();
-  }, []);
+  function carregarUsuarios() {
+    api.get("/usuarios")
+      .then((response) => {
+        setUsuarios(response.data);
+      })
+      .catch((error) => {
+        console.error("Erro ao buscar usuários:", error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }
 
-  async function fetchUsuarios() {
+  async function excluirUsuario(id: number) {
+    const confirmar = window.confirm("Deseja realmente excluir este usuário?");
+    if (!confirmar) return;
+
     try {
-      const response = await api.get<Usuario[]>("/usuarios");
-      setUsuarios(response.data);
+      await api.delete(`/usuarios/${id}`);
+      carregarUsuarios(); // 🔄 atualiza lista
     } catch (error) {
-      console.error("Erro:", error);
-    } finally {
-      setLoading(false);
+      console.error(error);
+      alert("Erro ao excluir usuário");
     }
   }
 
-  if (loading) return <p>Carregando usuários...</p>;
+  useEffect(() => {
+    carregarUsuarios();
+  }, [reload]);
+
+  if (loading) return <p>Carregando...</p>;
 
   return (
     <div>
-      <h2>Lista de Usuários</h2>
+      <h2>Usuários</h2>
 
       {usuarios.length === 0 ? (
         <p>Nenhum usuário encontrado.</p>
       ) : (
-        <table border={1}>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Nome</th>
-              <th>Email</th>
-            </tr>
-          </thead>
-          <tbody>
-            {usuarios.map((u) => (
-              <tr key={u.id}>
-                <td>{u.id}</td>
-                <td>{u.nome}</td>
-                <td>{u.email}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <ul>
+          {usuarios.map((u) => (
+            <li key={u.id}>
+              {u.nome} - {u.email}{" "}
+              <button onClick={() => excluirUsuario(u.id)}>
+                Excluir
+              </button>
+            </li>
+          ))}
+        </ul>
       )}
     </div>
   );
-};
-
-export default UsuarioList;
+}
