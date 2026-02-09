@@ -7,13 +7,13 @@ export class AuthService {
 
   async login(email: string, senha: string) {
     const usuario = await this.prisma.usuario.findUnique({
-      where: { email }
+      where: { email },
     });
 
     if (!usuario || usuario.senha !== senha) {
-      throw new Error("Credenciais inválidas");
+      throw new Error('Credenciais inválidas');
     }
 
-    return { message: "Login OK", usuario };
+    return { message: 'Login OK', usuario };
   }
 }

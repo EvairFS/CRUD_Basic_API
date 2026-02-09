@@ -5,7 +5,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
 
-  async function handleLogin(e: React.FormEvent) {
+  async function handleLogin(e: React.SyntheticEvent) {
     e.preventDefault();
 
     try {
@@ -18,6 +18,7 @@ export default function Login() {
       console.log(response.data);
 
     } catch (error) {
+      console.error("Email ou senha inválidos:",error);
       alert("Email ou senha inválidos");
     }
   }
