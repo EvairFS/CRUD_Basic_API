@@ -23,9 +23,56 @@ Projeto Fullstack para gerenciamento de usuários, desenvolvido com
 
 ## 📁 Estrutura do Projeto
 
-CRUD_teste/ ├── backend/ │ ├── prisma/ │ └── src/ │ ├── auth/ │ ├──
-usuario/ │ ├── prisma/ │ └── main.ts └── frontend/ └── src/ ├──
-components/ ├── services/ └── App.tsx
+backend
+├── prisma
+│   └── schema.prisma
+│
+├── src
+│   ├── app.module.ts
+│   ├── main.ts
+│   │
+│   ├── prisma
+│   │   └── prisma.service.ts
+│   │
+│   ├── usuario
+│   │   ├── dto
+│   │   │   └── create-usuario.dto.ts
+│   │   │
+│   │   ├── usuario.controller.ts
+│   │   ├── usuario.service.ts
+│   │   └── usuario.module.ts
+│   │
+│   └── auth
+│       ├── auth.controller.ts
+│       ├── auth.service.ts
+│       └── auth.module.ts
+│
+├── package.json
+└── tsconfig.json
+
+frontend
+├── public
+│   └── vite.svg
+│
+├── src
+│   ├── assets
+│   │   └── react.svg
+│   │
+│   ├── components
+│   │   ├── UsuarioForm.tsx
+│   │   ├── UsuarioList.tsx
+│   │   └── Login.tsx
+│   │
+│   ├── services
+│   │   └── api.ts
+│   │
+│   ├── App.tsx
+│   ├── main.tsx
+│   └── index.css
+│
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
 
 ## ⚙️ Backend
 
