@@ -21,8 +21,9 @@ Projeto Fullstack para gerenciamento de usuários, desenvolvido com
 -   TypeScript
 -   Axios
 
-## 📁 Estrutura do Projeto
+## Estrutura do Projeto
 
+```text
 backend
 ├── prisma
 │   └── schema.prisma
@@ -50,6 +51,7 @@ backend
 ├── package.json
 └── tsconfig.json
 
+
 frontend
 ├── public
 │   └── vite.svg
@@ -73,6 +75,7 @@ frontend
 ├── package.json
 ├── tsconfig.json
 └── vite.config.ts
+```
 
 ## ⚙️ Backend
 
